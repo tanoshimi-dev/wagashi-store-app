@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  wsa-wpdb-mysql:
+    container_name: 'wsa.wpdb.mysql'
+    image: mysql:8.4.2
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: smRbRoot
+      MYSQL_DATABASE: wsa_wp
+      MYSQL_USER: wsa_wp_user
+      MYSQL_PASSWORD: sl_P@ss
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    volumes:
+      - ./db/data:/var/lib/mysql
+    networks:
+      - wsa-local-network
+
+  wsa-wpdb-myadmin:
+    container_name: 'wsa.wpdb.myadmin'
+    depends_on:
+      - wsa-wpdb-mysql
+    image: phpmyadmin/phpmyadmin
+    platform: linux/x86_64
+    environment:
+      PMA_HOST: wsa-wpdb-mysql
+    restart: always
+    ports:
+      - "11112:80"
+    networks:
+      - wsa-local-network
+
+networks:
+  wsa-local-network:
+    external: true

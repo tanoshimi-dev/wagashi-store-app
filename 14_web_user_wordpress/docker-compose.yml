@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  wsa-user-wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 11141:80
+    networks:
+      - wsa-local-network    
+    environment:
+      WORDPRESS_DB_HOST: wsa-wpdb-mysql
+      WORDPRESS_DB_NAME: wsa_wp
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: smRbRoot
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./config/php.ini:/var/www/html/php.ini
+
+networks:
+  wsa-local-network:
+    external: true
