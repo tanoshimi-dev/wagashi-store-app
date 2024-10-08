@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  samurai-wp01-wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 56101:80
+    environment:
+      WORDPRESS_DB_HOST: samurai-wp01-db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - ./wordpress:/var/www/html
+
+  samurai-wp01-db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./db:/var/lib/mysql
+
+  samurai-wp01--myadmin:
+    container_name: 'samurai.wp01.myadmin'
+    depends_on:
+      - samurai-wp01-db
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: samurai-wp01-db
+    restart: always
+    ports:
+      - "56102:80"
+
+volumes:
+  wordpress:
+  db:
