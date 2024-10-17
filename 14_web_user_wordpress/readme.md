@@ -1,5 +1,5 @@
 
-http://localhost:56101/wp-admin
+http://localhost:11141/wp-admin
 
 demo_admin
 Rieso**7T$F8b0myo#
