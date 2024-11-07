@@ -1,0 +1,36 @@
+# Translation of Plugins - WP Customer Reviews - Development (trunk) in Japanese
+# This file is distributed under the same license as the Plugins - WP Customer Reviews - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-06-18 08:04:35+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: ja_JP\n"
+"Project-Id-Version: Plugins - WP Customer Reviews - Development (trunk)\n"
+
+#. Author URI of the plugin/theme
+msgid "http://www.gowebsolutions.com/"
+msgstr "http://www.gowebsolutions.com/"
+
+#. Author of the plugin/theme
+msgid "Go Web Solutions"
+msgstr "Web ソリューションを入手"
+
+#. Description of the plugin/theme
+msgid "Allows your visitors to leave business / product reviews. Testimonials are in Microdata / Microformat and may display star ratings in search results."
+msgstr "訪問者がビジネス/製品のレビューを残すことができます。レビュー内容は Microdata / Microformat に反映され、検索エンジンに星の評価が表示される可能性があります。"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.gowebsolutions.com/wp-customer-reviews/"
+msgstr "http://www.gowebsolutions.com/wp-customer-reviews/"
+
+#. Plugin Name of the plugin/theme
+msgid "WP Customer Reviews"
+msgstr "WP Customer Reviews"
+
+#: include/admin/wp-customer-reviews-3-admin.php:992
+msgid "You do not have sufficient permissions to access this page."
+msgstr "このページを表示する権限がありません。"

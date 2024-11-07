@@ -13,6 +13,8 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
       - ./db/data:/var/lib/mysql
+    networks:
+      - wsa-local-network
 
   wsa-appdb-myadmin:
     container_name: 'wsa.appdb.myadmin'
@@ -25,6 +27,8 @@ services:
     restart: always
     ports:
       - "11111:80"
+    networks:
+      - wsa-local-network
 
 networks:
   wsa-local-network:

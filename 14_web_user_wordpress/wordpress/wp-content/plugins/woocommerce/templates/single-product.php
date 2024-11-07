@@ -32,7 +32,14 @@ get_header( 'shop' ); ?>
 	?>
 
 		<?php while ( have_posts() ) : ?>
+			
 			<?php the_post(); ?>
+
+<!-- Custom message above the product title -->
+<div class="custom-message">
+	<p>Custom message goes here!</p>
+</div>
+
 
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
