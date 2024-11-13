@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\HelloController;
+use App\Http\Controllers\Api\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ Route::get('/hello', HelloController::class);
 Route::get('/messages', [HelloController::class, 'getMessages']);
 
 Route::get('/menus', [HelloController::class, 'getMenus']);
+
+Route::get('/products', ProductsController::class);
 
 
 
