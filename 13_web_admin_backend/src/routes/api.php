@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\HelloController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\HealthCheckController;
+
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +23,14 @@ use App\Http\Controllers\Api\ProductsController;
 Route::get('/hello', HelloController::class);
 Route::get('/messages', [HelloController::class, 'getMessages']);
 
-Route::get('/menus', [HelloController::class, 'getMenus']);
+// health check
+Route::get('/users', [HealthCheckController::class, 'getUsers']);
 
 Route::get('/products', ProductsController::class);
 
-
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
