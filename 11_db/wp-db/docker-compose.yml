@@ -33,3 +33,4 @@ services:
 networks:
   wsa-local-network:
     external: true
+#    driver: bridge
