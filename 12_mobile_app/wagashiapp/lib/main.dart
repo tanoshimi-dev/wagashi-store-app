@@ -15,6 +15,7 @@ import '/screens/menu_detail_screen.dart';
 import '/screens/menu_list_screen.dart';
 import '/screens/home_screen.dart';
 import '/screens/login.dart';
+import '/screens/stamp_screen.dart';
 import 'package:window_size/window_size.dart';
 
 void main() {
@@ -43,7 +44,8 @@ void setupWindow() {
 
 GoRouter router() {
   return GoRouter(
-    initialLocation: '/login',
+    // initialLocation: '/login',
+    initialLocation: '/stamp',
     routes: [
       GoRoute(
         path: '/login',
@@ -78,6 +80,11 @@ GoRouter router() {
       GoRoute(
         path: '/home',
         builder: (context, state) => const HomeScreen(),
+        //builder: (context, state) => MenuListScreen(),
+      ),
+      GoRoute(
+        path: '/stamp',
+        builder: (context, state) => const StampScreen(),
         //builder: (context, state) => MenuListScreen(),
       ),
     ],
