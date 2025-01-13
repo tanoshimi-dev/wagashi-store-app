@@ -35,6 +35,8 @@ class AuthService {
 
   Future<bool> login(String email, String password) async {
     print('AuthService login button pressed　！！');
+    print(email);
+    print(password);
 
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
@@ -45,9 +47,11 @@ class AuthService {
     if (response.statusCode == 200) {
       print('success');
       print((response.body));
+      final responseBody = jsonDecode(response.body);
+      print(responseBody['token']);
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', response.headers['set-cookie']!);
+      await prefs.setString('token', responseBody['token']!);
       return true;
     } else {
       return false;

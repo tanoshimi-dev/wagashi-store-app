@@ -249,3 +249,24 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 			do_action( 'wp_body_open' );
 	}
 }
+
+
+// https://chatgpt.com/c/677138fd-c80c-8008-aa09-bf28f25c3bfb
+add_action('template_redirect', function() {
+	echo "リダイレクト　template_redirect <br>" ;
+	echo "is_archive()" . is_archive() . "<br>";
+	echo "is_page('shop')" . is_page('shop') . "<br>";
+	echo "is_page('cart')" . is_page('cart') . "<br>";
+	echo "is_shop()" . is_shop() . "<br>";
+	
+    if (is_page('shop') || is_page('cart') || is_shop()) {
+        wp_redirect(home_url());
+        exit;
+    }
+});
+
+echo "Hello, World!★ <br>";
+global $post;
+$slug = $post->post_name;
+
+echo "$post->post_name " . $slug . "<br>";

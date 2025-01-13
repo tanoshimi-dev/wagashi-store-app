@@ -20,7 +20,7 @@
 			<section class="search">
 				<div class="container">
 					<div class="text-center d-md-flex align-items-center">
-						<?php get_search_form(); ?>
+						<?php // get_search_form(); ?>
 					</div>
 				</div>
 			</section>			
@@ -47,26 +47,33 @@
 							        <div class="navbar-expand">
 							            <ul class="navbar-nav float-left">
 							            	<?php if ( is_user_logged_in() ) : ?>
+											<!-- 
 								                <li>
 								                    <a class="nav-link" href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>"><?php esc_html_e( 'My Account', 'fancy-lab' ) ?></a>
 								                </li>
 								                <li>
 								                    <a class="nav-link" href="<?php echo esc_url( wp_logout_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) );?>"><?php esc_html_e( 'Logout', 'fancy-lab'); ?></a>
 								                </li>
+											-->
 							                <?php else: ?>
+												<!-- 
 								                <li>
 								                   <a class="nav-link" href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>"><?php esc_html_e( 'Login / Register', 'fancy-lab' ) ?></a>
 								                </li>
-							               	<?php endif; ?> 
+												-->
+											<?php endif; ?> 
 							            </ul>
 									</div>
 									<div class="cart text-right">
+										<!--
 										<a href="<?php echo esc_url( wc_get_cart_url() ); ?>"><span class="cart-icon"></span></a>
 										<span class="items"><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>
+											-->
 									</div>
 								</div>
 								<?php endif; ?>
 
+								<!--
 								<div class="col-12">
 									<nav class="main-menu navbar navbar-expand-md navbar-light" role="navigation">
 								        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#bs-main-menu" aria-controls="bs-main-menu" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'fancy-lab' ) ?>">
@@ -88,6 +95,8 @@
 										?>												
 									</nav>											
 								</div>
+								-->
+								
 							</div>
 						</div>
 					</div>

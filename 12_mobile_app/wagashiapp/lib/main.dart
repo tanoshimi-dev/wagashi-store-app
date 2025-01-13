@@ -15,8 +15,10 @@ import '/screens/menu_detail_screen.dart';
 import '/screens/menu_list_screen.dart';
 import '/screens/home_screen.dart';
 import '/screens/login.dart';
+import '/screens/user_profile_screen.dart';
 import '/screens/stamp_screen.dart';
 import '/screens/qrcode_scan_screen.dart';
+
 import 'package:window_size/window_size.dart';
 
 void main() {
@@ -46,12 +48,16 @@ void setupWindow() {
 GoRouter router() {
   return GoRouter(
     initialLocation: '/login',
-    // initialLocation: '/stamp',
+    //initialLocation: '/stamp',
     //initialLocation: '/qrcode_scan',
     routes: [
       GoRoute(
         path: '/login',
         builder: (context, state) => const MyLogin(),
+      ),
+      GoRoute(
+        path: '/user_profile',
+        builder: (context, state) => UserProfileScreen(),
       ),
       GoRoute(
         path: '/catalog',

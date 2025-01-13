@@ -33,3 +33,8 @@ https://wordpress.org/plugins/wp-customer-reviews/
 ３．２でコピーした資材を修正
 例）ショップ一覧でカートへ追加ボタンを消す場合
 テーマ/woocommerce/loop/add-to-cart.phpを修正
+
+
+-------------------
+WooCommerceショートコード
+https://wcpn.jp/2019/08/07/woo-page-shotocode/

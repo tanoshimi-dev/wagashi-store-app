@@ -39,64 +39,15 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.go('/menus/favorites'),
+            // onPressed: () => context.go('/menus/favorites'),
+            onPressed: () => context.go('/user_profile'),
           ),
         ],
       ),
       body: Column(children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            onChanged: (value) {
-              // Perform the search operation
-            },
-            decoration: InputDecoration(
-              labelText: "Search",
-              hintText: "Search",
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25.0)),
-              ),
-            ),
-          ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.all(20),
-        //   child: SizedBox(
-        //       height: 200, // Set this to the desired height
-        //       child: Scrollbar(
-        //         controller: _scrollController,
-        //         thumbVisibility: true,
-        //         child: ListView(
-        //           controller: _scrollController,
-        //           scrollDirection: Axis.horizontal,
-        //           children: <Widget>[
-        //             Container(
-        //               width: 200, // Set this to the desired width of each item
-        //               color: Colors.red,
-        //               child: const Text('Item 1'),
-        //             ),
-        //             Container(
-        //               width: 200, // Set this to the desired width of each item
-        //               color: Colors.blue,
-        //               child: const Text('Item 2'),
-        //             ),
-        //             Container(
-        //               width: 200, // Set this to the desired width of each item
-        //               color: Colors.indigo,
-        //               child: const Text('Item 1'),
-        //             ),
-        //             Container(
-        //               width: 200, // Set this to the desired width of each item
-        //               color: Colors.green,
-        //               child: const Text('Item 2'),
-        //             ),
-
-        //             // Add more containers for more items
-        //           ],
-        //         ),
-        //       )),
-        // ),
         Expanded(
             child: Scrollbar(
                 controller: _scrollController,
@@ -104,6 +55,12 @@ class HomeScreen extends StatelessWidget {
                   controller: _scrollController,
                   primary: false,
                   slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
                     SliverPadding(
                       padding: const EdgeInsets.all(20),
                       sliver: SliverGrid.count(
@@ -143,6 +100,12 @@ class HomeScreen extends StatelessWidget {
                             child: const Text('Revolution, they...'),
                           ),
                         ],
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.blueGrey,
                       ),
                     ),
                     SliverPadding(
@@ -186,6 +149,12 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             )),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.blueGrey,
                       ),
                     ),
                     SliverPadding(

@@ -1,0 +1,30 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FBEFC5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensure the body takes the full height of the viewport */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the container takes the full height of the body */
+}
+
+.div1, .div3 {
+    background-color: #FCE757;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.div2 {
+    background-color: #F08F5F;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1; /* Make the second div fill the remaining space */
+}

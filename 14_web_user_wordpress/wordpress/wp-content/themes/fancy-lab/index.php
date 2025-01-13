@@ -16,6 +16,9 @@ get_header();
 ?>
 
 <div class="content-area">
+	
+wagashi-store-app/14_web_user_wordpress/wordpress/wp-content/themes/fancy-lab/index.php
+
 	<main>
 		<div class="container">
 			<div class="row">
@@ -45,7 +48,7 @@ get_header();
 			</div>
 			<?php 
 			// Display the main sidebar
-			get_sidebar(); 
+			// get_sidebar(); 
 			?>
 			</div>
 		</div>											

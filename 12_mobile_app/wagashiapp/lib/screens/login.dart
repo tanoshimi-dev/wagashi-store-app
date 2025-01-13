@@ -20,8 +20,9 @@ class MyLogin extends StatelessWidget {
       final email = "joy03@example.com";
       final password = "password";
 
-      //final success = await _authService.login(email, password);
-      final success = await _authService.hello();
+      final success = await _authService.login(
+          _emailController.text, _passwordController.text);
+      //final success = await _authService.hello();
 
       if (success) {
         // Navigator.pushReplacementNamed(context, '/home');
