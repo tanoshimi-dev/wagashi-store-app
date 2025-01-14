@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -70,6 +71,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             );
           }
         },
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          context.go('/home');
+        },
+        selectedIndex: 0,
+        // 下のプロパティで背景色を設定できます。
+        // backgroundColor: Colors.black,
+        animationDuration: const Duration(seconds: 10),
+        elevation: 10,
+        // height: 100,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: const <Widget>[
+          NavigationDestination(
+              icon: Icon(Icons.home), label: 'ホーム', tooltip: "tooltip1"),
+          NavigationDestination(
+              icon: Icon(Icons.menu_book), label: 'お菓子', tooltip: "tooltip2"),
+          NavigationDestination(
+              icon: Icon(Icons.search), label: '検索', tooltip: "tooltip4"),
+          NavigationDestination(
+              icon: Icon(Icons.card_giftcard),
+              label: 'スタンプ',
+              tooltip: "tooltip5"),
+        ],
       ),
     );
   }
