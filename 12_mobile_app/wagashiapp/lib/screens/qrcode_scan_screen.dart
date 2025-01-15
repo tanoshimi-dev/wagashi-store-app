@@ -88,6 +88,42 @@ class _ScanPageState extends State<ScanPage> {
             ),
         ],
       ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          print('tab index $index');
+          // getMenus();
+          if (index == 0) {
+            context.go('/home');
+          }
+          if (index == 1) {
+            context.go('/stamp');
+          }
+          if (index == 2) {
+            context.go('/qrcode_scan');
+          } else {
+            context.go('/home');
+          }
+        },
+        selectedIndex: 0,
+        // 下のプロパティで背景色を設定できます。
+        // backgroundColor: Colors.black,
+        animationDuration: const Duration(seconds: 10),
+        elevation: 10,
+        // height: 100,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: const <Widget>[
+          NavigationDestination(
+              icon: Icon(Icons.home), label: 'ホーム', tooltip: "tooltip1"),
+          NavigationDestination(
+              icon: Icon(Icons.menu_book), label: 'お菓子', tooltip: "tooltip2"),
+          NavigationDestination(
+              icon: Icon(Icons.search), label: '検索', tooltip: "tooltip4"),
+          NavigationDestination(
+              icon: Icon(Icons.card_giftcard),
+              label: 'スタンプ',
+              tooltip: "tooltip5"),
+        ],
+      ),
     );
   }
 }

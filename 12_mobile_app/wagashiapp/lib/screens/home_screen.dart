@@ -177,7 +177,19 @@ class HomeScreen extends StatelessWidget {
       ]),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          context.go('/home');
+          print('tab index $index');
+          // getMenus();
+          if (index == 0) {
+            context.go('/home');
+          }
+          if (index == 1) {
+            context.go('/stamp');
+          }
+          if (index == 2) {
+            context.go('/qrcode_scan');
+          } else {
+            context.go('/home');
+          }
         },
         selectedIndex: _currentIndex,
         // 下のプロパティで背景色を設定できます。
