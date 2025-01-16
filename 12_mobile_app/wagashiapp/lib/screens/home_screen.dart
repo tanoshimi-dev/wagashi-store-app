@@ -177,15 +177,16 @@ class HomeScreen extends StatelessWidget {
       ]),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          print('tab index $index');
+          print('home screen tab index $index');
           // getMenus();
           if (index == 0) {
+            print('home $index');
             context.go('/home');
-          }
-          if (index == 1) {
+          } else if (index == 1) {
+            print('stamp $index');
             context.go('/stamp');
-          }
-          if (index == 2) {
+          } else if (index == 2) {
+            print('qrcode_scan $index');
             context.go('/qrcode_scan');
           } else {
             context.go('/home');
@@ -213,141 +214,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class _MyAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Text('MENU', style: Theme.of(context).textTheme.displayLarge),
-      floating: true,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.shopping_cart),
-          onPressed: () => context.go('/menus/favorites'),
-        ),
-      ],
-    );
-  }
-}
-
-class _MyListItem extends StatelessWidget {
-  final Menu menu;
-  const _MyListItem({required this.menu});
-
-  @override
-  Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme.titleLarge;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-      child: LimitedBox(
-        maxHeight: 24,
-        child: InkWell(
-          onTap: () => context.go('/menus/detail/${menu.menuId.toString()}'),
-          child: Row(
-            children: [
-              Text(menu.menuId.toString()),
-              const SizedBox(width: 24),
-              Expanded(
-                child:
-                    Text(menu.name, style: textTheme?.copyWith(fontSize: 16.0)),
-              ),
-              const SizedBox(width: 6),
-              _FavIcon(menu: menu),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FavIcon extends StatelessWidget {
-  final Menu menu;
-
-  const _FavIcon({required this.menu});
-
-  @override
-  Widget build(BuildContext context) {
-    var isFavorite = context.select<FavoriteProvider, bool>(
-      (favoriteProvider) => favoriteProvider.favoritesMenu.contains(menu),
-    );
-
-    return isFavorite
-        ? Icon(
-            Icons.check,
-            color: Colors.grey, // Change the color of the icon
-            size: 24.0, // Change the size of the icon
-            semanticLabel: 'ADDED',
-          )
-        : Text('');
-  }
-}
-
-// DBからメニュー情報を取得する
-Future<List<Menu>> getMenus(BuildContext context) async {
-  // Add a return statement at the end
-  var menusProvider = context.read<MenusProvider>();
-  print('getMenus 現在数 ${menusProvider.menus.length}');
-
-  if (menusProvider.menus.length > 0) {
-    print('DB検索しません ${menusProvider.menus.length}');
-    return menusProvider.menus;
-  }
-
-  try {
-    // エミュレーターから（ローカルPC内の）dockerコンテナへのアドレスは10.0.2.2となる
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:15011/api/menus')).timeout(
-      const Duration(seconds: 15),
-      onTimeout: () {
-        throw TimeoutException('The connection has timed out!');
-      },
-    );
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      var data = jsonResponse['data'];
-      // print(data);
-      // print(data.length);
-      List<Map<String, dynamic>> dataList =
-          List<Map<String, dynamic>>.from(data);
-
-      // Now you can iterate over dataList
-      for (var menu in dataList) {
-        //print(item);
-        // item.forEach((key, value) {
-        //   print('Key: $key, Value: $value');
-        // });
-        print('item message=${menu['id']} number=${menu['name']}');
-      }
-
-      List<Menu> menuList = dataList.map((menu) {
-        return Menu(
-          menuId: menu['id'],
-          name: menu['name'],
-          price: menu['price'] ?? 0,
-          description: menu['description'] ?? 'No description',
-        );
-      }).toList();
-      return menuList;
-
-      //return dataList;
-    } else {
-      // If the server returns an unexpected response, throw an error.
-      throw Exception('Unexpected response from the server!');
-    }
-  } on TimeoutException catch (e) {
-    // Handle the timeout exception
-    print(e.message);
-    return [];
-  } catch (e) {
-    // Handle any other exceptions
-    print(e);
-    return [];
-  }
-  return [];
 }

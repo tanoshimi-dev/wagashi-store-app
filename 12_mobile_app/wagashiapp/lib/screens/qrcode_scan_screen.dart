@@ -50,16 +50,13 @@ class _ScanPageState extends State<ScanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Barcode Scanner'),
+        title: Text('Barcode Scanner',
+            style: Theme.of(context).textTheme.displayLarge),
         actions: [
           IconButton(
-            icon: Icon(_isFlashOn ? Icons.flash_on : Icons.flash_off),
-            onPressed: () {
-              setState(() {
-                _isFlashOn = !_isFlashOn;
-              });
-              _scannerController.toggleTorch();
-            },
+            icon: const Icon(Icons.settings),
+            // onPressed: () => context.go('/menus/favorites'),
+            onPressed: () => context.go('/user_profile'),
           ),
         ],
       ),
@@ -90,15 +87,16 @@ class _ScanPageState extends State<ScanPage> {
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          print('tab index $index');
+          print('home screen tab index $index');
           // getMenus();
           if (index == 0) {
+            print('home $index');
             context.go('/home');
-          }
-          if (index == 1) {
+          } else if (index == 1) {
+            print('stamp $index');
             context.go('/stamp');
-          }
-          if (index == 2) {
+          } else if (index == 2) {
+            print('qrcode_scan $index');
             context.go('/qrcode_scan');
           } else {
             context.go('/home');

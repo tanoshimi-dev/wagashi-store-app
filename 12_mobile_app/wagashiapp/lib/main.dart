@@ -15,6 +15,7 @@ import '/screens/menu_detail_screen.dart';
 import '/screens/menu_list_screen.dart';
 import '/screens/home_screen.dart';
 import '/screens/login.dart';
+import '/screens/login_screen.dart';
 import '/screens/user_profile_screen.dart';
 import '/screens/stamp_screen.dart';
 import '/screens/qrcode_scan_screen.dart';
@@ -53,7 +54,8 @@ GoRouter router() {
     routes: [
       GoRoute(
         path: '/login',
-        builder: (context, state) => const MyLogin(),
+        builder: (context, state) => LoginScreen(),
+        // builder: (context, state) => const MyLogin(),
       ),
       GoRoute(
         path: '/user_profile',

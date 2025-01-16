@@ -74,15 +74,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          print('tab index $index');
+          print('home screen tab index $index');
           // getMenus();
           if (index == 0) {
+            print('home $index');
             context.go('/home');
-          }
-          if (index == 1) {
+          } else if (index == 1) {
+            print('stamp $index');
             context.go('/stamp');
-          }
-          if (index == 2) {
+          } else if (index == 2) {
+            print('qrcode_scan $index');
             context.go('/qrcode_scan');
           } else {
             context.go('/home');
