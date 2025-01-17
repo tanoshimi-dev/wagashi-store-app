@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '/common/theme.dart';
 import '/providers/menus_provider.dart';
@@ -24,7 +25,7 @@ import 'package:window_size/window_size.dart';
 
 void main() {
   setupWindow();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 const double windowWidth = 400;
@@ -46,89 +47,63 @@ void setupWindow() {
   }
 }
 
-GoRouter router() {
-  return GoRouter(
-    initialLocation: '/login',
-    //initialLocation: '/stamp',
-    //initialLocation: '/qrcode_scan',
-    routes: [
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => LoginScreen(),
-        // builder: (context, state) => const MyLogin(),
-      ),
-      GoRoute(
-        path: '/user_profile',
-        builder: (context, state) => UserProfileScreen(),
-      ),
-      GoRoute(
-        path: '/catalog',
-        builder: (context, state) => const MyCatalog(),
-        routes: [
-          GoRoute(
-            path: 'cart',
-            builder: (context, state) => const MyCart(),
-          ),
-        ],
-      ),
-      GoRoute(
-        path: '/menus',
-        builder: (context, state) => const MenuListScreen(),
-        //builder: (context, state) => MenuListScreen(),
-        routes: [
-          GoRoute(
-            path: 'detail/:id',
-            builder: (context, state) => MenuDetailScreen(
-                menuId: int.parse(state.pathParameters['id']!)),
-          ),
-          GoRoute(
-            path: 'favorites',
-            builder: (context, state) => const FavoritesScreen(),
-          ),
-        ],
-      ),
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeScreen(),
-        //builder: (context, state) => MenuListScreen(),
-      ),
-      GoRoute(
-        path: '/stamp',
-        builder: (context, state) => const StampScreen(),
-        //builder: (context, state) => MenuListScreen(),
-      ),
-      GoRoute(
-        path: '/qrcode_scan',
-        builder: (context, state) => const QrcodeScanScreen(),
-        //builder: (context, state) => MenuListScreen(),
-      ),
-    ],
-  );
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Using MultiProvider is convenient when providing multiple objects.
-    return MultiProvider(
-      providers: [
-        // In this sample app, CatalogModel never changes, so a simple Provider
-        // is sufficient.
-//        Provider(create: (context) => FavoriteProvider()),
-        ChangeNotifierProvider(create: (context) => MenusProvider()),
-        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
-        ChangeNotifierProvider(create: (context) => TabMenuStateProvider()),
-      ],
-      child: DefaultTabController(
-        length: 3,
-        child: MaterialApp.router(
-          title: 'Provider Demo',
-          theme: appTheme,
-          routerConfig: router(),
-        ),
-      ),
+    return FutureBuilder<String?>(
+      future: _getToken(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        } else {
+          final token = snapshot.data;
+          final GoRouter _router = GoRouter(
+            initialLocation: token == null ? '/' : '/home',
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => LoginScreen(),
+              ),
+              GoRoute(
+                path: '/home',
+                builder: (context, state) => HomeScreen(),
+              ),
+              GoRoute(
+                path: '/stamp',
+                builder: (context, state) => StampScreen(),
+              ),
+              GoRoute(
+                path: '/qrcode_scan',
+                builder: (context, state) => const QrcodeScanScreen(),
+                //builder: (context, state) => MenuListScreen(),
+              ),
+              GoRoute(
+                path: '/user_profile',
+                builder: (context, state) => UserProfileScreen(),
+              ),
+            ],
+          );
+
+          return MaterialApp.router(
+            routerConfig: _router,
+            title: 'Wagashi Store App',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+          );
+        }
+      },
     );
+  }
+
+  Future<String?> _getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
   }
 }

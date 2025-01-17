@@ -19,10 +19,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tabMenuStateProvider = context.watch<TabMenuStateProvider>();
-    final int _currentIndex = tabMenuStateProvider.tabMenuIndex;
+    // var tabMenuStateProvider = context.watch<TabMenuStateProvider>();
+    // final int _currentIndex = tabMenuStateProvider.tabMenuIndex;
 
-    var menusProvider = context.read<MenusProvider>();
+    // var menusProvider = context.read<MenusProvider>();
     //late Future<List<Menu>>? menuList = getMenus(context);
     // print('menuList  ${menusProvider.menus.length}');
     // if (menusProvider.menus.length == 0) {
@@ -192,7 +192,7 @@ class HomeScreen extends StatelessWidget {
             context.go('/home');
           }
         },
-        selectedIndex: _currentIndex,
+        selectedIndex: 0,
         // 下のプロパティで背景色を設定できます。
         // backgroundColor: Colors.black,
         animationDuration: const Duration(seconds: 10),
