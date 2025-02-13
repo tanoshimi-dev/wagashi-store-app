@@ -51,7 +51,7 @@ class _ScanPageState extends State<ScanPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Barcode Scanner',
-            style: Theme.of(context).textTheme.displayLarge),
+            style: Theme.of(context).textTheme.displaySmall),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -83,6 +83,7 @@ class _ScanPageState extends State<ScanPage> {
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
+          // QRコード + user_id , 成功するとスタンプを押してスタンプ画面に遷移
         ],
       ),
       bottomNavigationBar: NavigationBar(
