@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
           final token = snapshot.data;
           final GoRouter _router = GoRouter(
             initialLocation: token == null ? '/' : '/home',
+            //initialLocation: '/',
             routes: [
               GoRoute(
                 path: '/',

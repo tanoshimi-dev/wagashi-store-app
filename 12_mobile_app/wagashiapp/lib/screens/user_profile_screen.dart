@@ -51,26 +51,43 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
+  Future<void> _logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    context.go('/');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Profile'),
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: _fetchUserProfile(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            final user = snapshot.data!;
-            return Center(
-              child: Text('Hello, ${user['name']}'),
-            );
-          }
-        },
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: FutureBuilder<Map<String, dynamic>>(
+              future: _fetchUserProfile(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final user = snapshot.data!;
+                  return Center(
+                    child: Text('Hello, ${user['name']}'),
+                  );
+                }
+              },
+            ),
+          ),
+          ElevatedButton(
+            onPressed: _logout,
+            child: Text('Logout'),
+          ),
+        ],
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
