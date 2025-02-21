@@ -35,13 +35,19 @@ class AdminUserAuthController extends Controller
             $user = Auth::guard('admin-web')->user();
             $token = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json([
-                'token' => $token,
-                'user' => $user
-            ], 200);
+            $request->session()->regenerate();
+            $request->session()->regenerateToken();
+
+            // return response()->json([
+            //     'token' => $token,
+            //     'user' => $user
+            // ], 200);
+            return view('dashboard');
         }
 
         return response()->json(['error' => 'Invalid credentials'], 401);
+
+        
     }
 
     public function logout(Request $request)
@@ -62,7 +68,8 @@ class AdminUserAuthController extends Controller
         $request->session()->regenerateToken();
         $user->tokens()->delete();
 
-        return response()->json(['message' => 'Logged out']);
+        //return response()->json(['message' => 'Logged out']);
+        return view('dashboard');
     }
 
     public function user(Request $request)

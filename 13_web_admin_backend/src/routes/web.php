@@ -26,15 +26,24 @@ Route::get('/', function () {
 
 
 Route::get('/admin/user', [AdminUserAuthController::class, 'user']);
-Route::post('/admin/user/login', [AdminUserAuthController::class, 'login']);
+Route::post('/admin/user/login', [AdminUserAuthController::class, 'login'])->name('login-post');
 Route::post('/admin/user/register', [AdminUserAuthController::class, 'register']);
 
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
 Route::group(['middleware' => ['auth:admin-web']], function () {
     Route::get('/qrcode-create', function () {
         return view('qrcode-create');
     });
-    Route::post('/admin/user/logout', [AdminUserAuthController::class, 'logout']);    
+    Route::post('/admin/user/logout', [AdminUserAuthController::class, 'logout'])->name('logout-post');    
 });
 Route::get('/qrcode', function () {
     return view('qrcode');
