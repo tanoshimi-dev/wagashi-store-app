@@ -32,6 +32,7 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   String? _scanResult;
   bool _isFlashOn = false;
+  bool _isLoading = false;
   MobileScannerController _scannerController = MobileScannerController();
 
   @override
@@ -51,6 +52,9 @@ class _ScanPageState extends State<ScanPage> {
   }
 
   Future<void> _callApi() async {
+    setState(() {
+      _isLoading = true;
+    });    
     // 物理デバイスから（ローカルPC内の）dockerコンテナへのアドレスは？？
     // PCでifconfigで表示されたeen0のinetアドレス。（PC ゲートウェイ 192.168.0.1）
     // スマホのゲートウェイアドレス（スマホゲートウェイ 192.168.0.1）
@@ -73,6 +77,10 @@ class _ScanPageState extends State<ScanPage> {
       },
       body: jsonEncode({'scan_result': _scanResult}),
     );
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if (response.statusCode == 200) {
       // Handle successful response
@@ -123,10 +131,12 @@ class _ScanPageState extends State<ScanPage> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: _callApi,
-                    child: Text('Submit Scan Result'),
-                  ),
+                  _isLoading
+                      ? CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: _callApi,
+                          child: Text('Submit Scan Result'),
+                        ),
                 ],
               ),
             ),
