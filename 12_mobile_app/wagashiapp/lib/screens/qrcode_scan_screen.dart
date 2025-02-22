@@ -8,6 +8,10 @@ import '/providers/tab_menu_state_provider.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class QrcodeScanScreen extends StatelessWidget {
   const QrcodeScanScreen({super.key});
 
@@ -46,6 +50,39 @@ class _ScanPageState extends State<ScanPage> {
     }
   }
 
+  Future<void> _callApi() async {
+    // 物理デバイスから（ローカルPC内の）dockerコンテナへのアドレスは？？
+    // PCでifconfigで表示されたeen0のinetアドレス。（PC ゲートウェイ 192.168.0.1）
+    // スマホのゲートウェイアドレス（スマホゲートウェイ 192.168.0.1）
+    // 同じネットワークにないとダメ
+    final String baseUrl =
+        'http://192.168.0.154:11131/api'; // Replace with your local machine's IP address
+
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/stampFF?qr_code=202502221722'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'scan_result': _scanResult}),
+    );
+
+    if (response.statusCode == 200) {
+      // Handle successful response
+      print('API call successful');
+    } else {
+      // Handle error response
+      print('API call failed: ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +115,19 @@ class _ScanPageState extends State<ScanPage> {
             Positioned(
               bottom: 20,
               left: 20,
-              child: Text(
-                'Scan Result: $_scanResult',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Scan Result: $_scanResult',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: _callApi,
+                    child: Text('Submit Scan Result'),
+                  ),
+                ],
               ),
             ),
           // QRコード + user_id , 成功するとスタンプを押してスタンプ画面に遷移
