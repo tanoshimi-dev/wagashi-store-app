@@ -49,6 +49,7 @@ body{
 .content-area{
     min-height: 500px;
     padding: 3rem 0;    
+    background-color: #FEF8E9;
 }
 
 .page-template-template-home-php .content-area{
@@ -60,8 +61,10 @@ body{
 /* Header - Main Menu */
 body #page > header{
     border-top: 4px solid #FFEB33;
-    background-color: #fdfdfd;
-    border-bottom: 1px solid #eee;    
+    /* background-color: #fdfdfd; */
+    background-color: #FCE0AF;
+
+    border-bottom: 1px solid #eee;
 }
 
 header .search{

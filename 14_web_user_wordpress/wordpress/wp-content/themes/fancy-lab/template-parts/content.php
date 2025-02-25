@@ -8,11 +8,11 @@
  */
 
 ?>
-<article <?php post_class(); ?>>
+<article <?php post_class(); ?> style="max-width: 200px; max-height: 200px; margin:1rem;">
 	<h1 class="title">
         <a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
     </h1>
-    <div class="post-thumbnail">
+    <div class="post-thumbnail" >
     	<?php 
         	if( has_post_thumbnail() ): 
         		the_post_thumbnail( 'fancy-lab-blog', array( 'class' => 'img-fluid') );
